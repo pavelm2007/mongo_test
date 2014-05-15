@@ -1,0 +1,17 @@
+Django==1.6.4
+GnuPGInterface==0.3.2
+PIL==1.1.7
+blinker==1.3
+command-not-found==0.1
+distribute==0.6.10
+django-ajax-selects==1.3.4
+django-mongonaut==0.2.20
+django-registration-me==0.8
+mongodbforms==0.3
+mongoengine==0.8.7
+pymongo==2.7
+python-apt==0.7.94.2ubuntu6.4
+regme==0.2.5
+requests==2.2.1
+ufw==0.30pre1-0ubuntu2
+wsgiref==0.1.2

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% block extra_js %}
+    <script src="{% static 'js/formset/jquery.formset.min.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#id_hero_images tbody tr').formset({
+                // For inline formsets, be sure to set the prefix, as the default prefix
+                // ('form') isn't correct.
+                // Django appears to generate the prefix from the lowercase plural
+                // name of the related model, with camel-case converted to underscores.
+                {#                prefix: 'image_items'#}
+            })
+        })
+    </script>
+    <style type="text/css">
+        .delete-row {
+            margin-left: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
+                {{ form.as_p }}
+                <table id="id_hero_images" border="0" cellpadding="0" cellspacing="5">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name:</th>
+                        <th scope="col">Image:</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for form in formset_image.forms %}
+                        <tr id="{{ form.prefix }}-row">
+                            <td>
+                                {% for fld in form.hidden_fields %}{{ fld }}{% endfor %}
+                                {% if form.instance.pk %}{{ form.DELETE }}{% endif %}
+                                {{ form.name }}
+                            </td>
+                            <td>{{ form.image }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {{ formset_image.management_form }}
+
+                <input type="submit" class="btn btn-success"/>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+

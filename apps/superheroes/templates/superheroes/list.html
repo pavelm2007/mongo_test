@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block extra_js %}
+    <script type="text/javascript">
+        $(function () {
+            $('#id_filter').on('change', function (e) {
+
+                this.form.submit()
+            })
+        })
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <form action="." method="get">
+{#                {% csrf_token %}#}
+                {{ form }}
+            </form>
+        </div>
+        {% for hero in hero_list %}
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <h4>{{ hero.name }}</h4>
+                {{ hero.persone_name|linebreaks }}
+                {{ hero.powers|linebreaks }}
+                <div class="btn-group">
+                    <a href="{{ hero.get_absolute_url }}" class="btn btn-primary">Read</a>
+                    <a href="{{ hero.get_edit_url }}" class="btn btn-primary">Edit</a>
+                    <a href="{{ hero.get_delete_url }}" class="btn btn-primary">Delete</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
